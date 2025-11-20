@@ -1,0 +1,28 @@
+# Executable
+pipex
+
+# Object files
+*.o
+obj/
+obj_bonus/
+
+# Build directories
+.build/
+.build_bonus/
+
+# Libraries
+*.a
+
+# System files
+.DS_Store
+*.swp
+*.swo
+*~
+
+# Test files
+test
+tests/
+tester/
+a.out
+outfile
+infile
