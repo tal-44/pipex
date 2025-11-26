@@ -26,3 +26,7 @@ tester/
 a.out
 outfile
 infile
+*.sh
+
+*.txt
+en.subject*.pdf
