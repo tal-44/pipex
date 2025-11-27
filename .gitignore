@@ -21,8 +21,8 @@ obj_bonus/
 
 # Test files
 test
-tests*/
-tester*/
+tests/
+testerFran/
 a.out
 outfile
 infile
