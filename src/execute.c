@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmiguele <jmiguele@student.42madrid.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/27 10:20:47 by jmiguele          #+#    #+#             */
+/*   Updated: 2025/11/27 12:26:31 by jmiguele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
 char	*search_in_paths(char **paths, char *cmd)
@@ -11,11 +23,11 @@ char	*search_in_paths(char **paths, char *cmd)
 	{
 		temp = ft_strjoin(paths[j], "/");
 		if (!temp)
-			break;
+			break ;
 		full_path = ft_strjoin(temp, cmd);
 		free(temp);
 		if (!full_path)
-			break;
+			break ;
 		if (access(full_path, X_OK) == 0)
 		{
 			free_split(paths);
@@ -28,7 +40,7 @@ char	*search_in_paths(char **paths, char *cmd)
 	return (NULL);
 }
 
-char *get_cmd_path(char *cmd, char **envp)
+char	*get_cmd_path(char *cmd, char **envp)
 {
 	char	*path;
 	char	**paths;
@@ -71,13 +83,12 @@ void	execute(char *cmd, char **envp)
 	cmd_path = get_cmd_path(cmd_args[0], envp);
 	if (!cmd_path)
 	{
-		write(2, "bash: ", 6);
+		//	write(2, "bash: ", 6);
 		write(2, cmd_args[0], ft_strlen(cmd_args[0]));
 		write(2, ": command not found\n", 20);
 		free_split(cmd_args);
 		exit(127);
 	}
-
 	execve(cmd_path, cmd_args, envp);
 	perror("execve");
 	free_split(cmd_args);

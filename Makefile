@@ -10,6 +10,7 @@ SRCS	= src/main.c \
 		  src/checks.c \
 		  src/utils/utilsa.c \
 		  src/utils/utilsb.c \
+		  src/utils/utilsc.c \
 		  src/utils/ft_split.c \
 		  src/utils/ft_printf/ft_printf.c \
 		  src/utils/ft_printf/ft_printf_utils.c

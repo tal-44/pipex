@@ -1,13 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipex.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmiguele <jmiguele@student.42madrid.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/11/27 11:29:39 by jmiguele          #+#    #+#             */
+/*   Updated: 2025/11/27 12:45:27 by jmiguele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <fcntl.h>
-# include <sys/wait.h>
-# include <stdio.h>
 # include "../src/utils/ft_printf/ft_printf.h"
+# include <fcntl.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <sys/wait.h>
+# include <unistd.h>
 
 // Utils functions
 void	ft_putchar_fd(char c, int fd);
@@ -18,22 +29,20 @@ char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strdup(const char *src);
 char	**ft_split(char const *s, char c);
 void	free_split(char **split);
+char	*ft_strchr(const char *s, int c);
+char	*ft_strtrim(char *s1, char const *set);
 
 // Check functions
-void	check_files(char *infile, char *outfile);
 void	check_args(int argc, char **argv);
 
 // File operations
-int		openOrCreateFile(char *filename, int mode);
+int		check_files(char *file, int mode);
+int		open_or_create_file(char *filename, int mode);
 
 // Execute functions
-char	*search_in_paths(char **paths, char *cmd);
-char	*get_cmd_path(char *cmd, char **envp);
 void	execute(char *cmd, char **envp);
 
 // Pipex functions
-void	child_processIn(int pipefd[2], char **argv, char **envp);
-void	child_processOut(int pipefd[2], char **argv, char **envp);
 int		pipex(char **argv, char **envp);
 
 #endif

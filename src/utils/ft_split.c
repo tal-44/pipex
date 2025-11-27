@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: juanm <juanm@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jmiguele <jmiguele@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 11:45:51 by jmiguele          #+#    #+#             */
-/*   Updated: 2025/11/26 13:40:24 by juanm            ###   ########.fr       */
+/*   Updated: 2025/11/27 10:44:41 by jmiguele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,11 @@ void	free_split(char **arr)
 	size_t	i;
 
 	if (!arr)
-		return;
+		return ;
 	i = 0;
 	while (arr[i])
 	{
+		arr[i] = (NULL);
 		free(arr[i]);
 		i++;
 	}
@@ -79,11 +80,7 @@ char	**ft_split(char const *s, char c)
 			s++;
 		strs[i] = malloc(word_len(s, c) + 1);
 		if (!strs[i])
-		{
-			strs[i] = NULL;
-			free_split(strs);
-			return (NULL);
-		}
+			return (free_split(strs), (NULL));
 		ft_strlcpy(strs[i], (char *)s, word_len(s, c) + 1);
 		s += word_len(s, c);
 		i++;

@@ -6,30 +6,11 @@
 /*   By: jmiguele <jmiguele@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 10:29:18 by jmiguele          #+#    #+#             */
-/*   Updated: 2025/10/29 12:52:52 by jmiguele         ###   ########.fr       */
+/*   Updated: 2025/11/27 10:24:01 by jmiguele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-static void	print_hex(const char type, va_list args, int *printed_chars);
-
-static void	print(const char type, va_list args, int *printed_chars)
-{
-	if (type == 'c')
-	{
-		ft_putchar_fd(va_arg(args, int), 1);
-		(*printed_chars)++;
-	}
-	else if (type == 's')
-		putstr_fd(va_arg(args, char *), 1, printed_chars);
-	else if (type == 'd' || type == 'i')
-		putnbr_fd(va_arg(args, int), 1, printed_chars);
-	else if (type == 'u')
-		putunsnbr_fd(va_arg(args, unsigned int), 1, printed_chars);
-	else
-		print_hex(type, args, printed_chars);
-}
 
 static void	print_hex(const char type, va_list args, int *printed_chars)
 {
@@ -55,6 +36,23 @@ static void	print_hex(const char type, va_list args, int *printed_chars)
 		ft_putchar_fd('%', 1);
 		(*printed_chars)++;
 	}
+}
+
+static void	print(const char type, va_list args, int *printed_chars)
+{
+	if (type == 'c')
+	{
+		ft_putchar_fd(va_arg(args, int), 1);
+		(*printed_chars)++;
+	}
+	else if (type == 's')
+		putstr_fd(va_arg(args, char *), 1, printed_chars);
+	else if (type == 'd' || type == 'i')
+		putnbr_fd(va_arg(args, int), 1, printed_chars);
+	else if (type == 'u')
+		putunsnbr_fd(va_arg(args, unsigned int), 1, printed_chars);
+	else
+		print_hex(type, args, printed_chars);
 }
 
 int	ft_printf(const char *input, ...)
