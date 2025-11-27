@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiguele <jmiguele@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: juanm <juanm@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 11:45:51 by jmiguele          #+#    #+#             */
-/*   Updated: 2025/11/27 10:44:41 by jmiguele         ###   ########.fr       */
+/*   Updated: 2025/11/27 16:17:32 by juanm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ void	free_split(char **arr)
 	i = 0;
 	while (arr[i])
 	{
-		arr[i] = (NULL);
 		free(arr[i]);
+		arr[i] = NULL;
 		i++;
 	}
 	free(arr);

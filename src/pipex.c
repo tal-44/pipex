@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiguele <jmiguele@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: juanm <juanm@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 10:20:07 by jmiguele          #+#    #+#             */
-/*   Updated: 2025/11/27 12:24:11 by jmiguele         ###   ########.fr       */
+/*   Updated: 2025/11/27 15:59:30 by juanm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	child_process_in(int pipefd[2], char **argv, char **envp)
 	close(infd);
 	if (err < 0)
 		exit(1);
-	execute(argv[2], envp);
+	execute(ft_strtrim(argv[2], " "), envp);
 	exit(0);
 }
 
@@ -75,7 +75,7 @@ static void	child_process_out(int pipefd[2], char **argv, char **envp)
 	close(outfd);
 	if (err < 0)
 		exit(1);
-	execute(argv[3], envp);
+	execute(ft_strtrim(argv[3], " "), envp);
 	exit(0);
 }
 

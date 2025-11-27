@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmiguele <jmiguele@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: juanm <juanm@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 10:20:47 by jmiguele          #+#    #+#             */
-/*   Updated: 2025/11/27 12:26:31 by jmiguele         ###   ########.fr       */
+/*   Updated: 2025/11/27 17:31:59 by juanm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	*search_in_paths(char **paths, char *cmd)
+char	*search_in_paths(char **paths, char **cmd_args)
 {
 	char	*full_path;
 	char	*temp;
@@ -24,7 +24,7 @@ char	*search_in_paths(char **paths, char *cmd)
 		temp = ft_strjoin(paths[j], "/");
 		if (!temp)
 			break ;
-		full_path = ft_strjoin(temp, cmd);
+		full_path = ft_strjoin(temp, cmd_args[0]);
 		free(temp);
 		if (!full_path)
 			break ;
@@ -40,16 +40,16 @@ char	*search_in_paths(char **paths, char *cmd)
 	return (NULL);
 }
 
-char	*get_cmd_path(char *cmd, char **envp)
+char	*get_cmd_path(char **cmd_args, char **envp)
 {
 	char	*path;
 	char	**paths;
 	int		i;
 
-	if (cmd[0] == '/' || (cmd[0] == '.' && cmd[1] == '/'))
+	if (cmd_args[0][0] == '/' || (cmd_args[0][0] == '.' && cmd_args[0][1] == '/'))
 	{
-		if (access(cmd, X_OK) == 0)
-			return (ft_strdup(cmd));
+		if (access(cmd_args[0], X_OK) == 0)
+			return ((cmd_args[0]));
 		return (NULL);
 	}
 	i = 0;
@@ -61,7 +61,7 @@ char	*get_cmd_path(char *cmd, char **envp)
 			paths = ft_split(path, ':');
 			if (!paths)
 				return (NULL);
-			return (search_in_paths(paths, cmd));
+			return (search_in_paths(paths, cmd_args));
 		}
 		i++;
 	}
@@ -75,15 +75,15 @@ void	execute(char *cmd, char **envp)
 	char	*cmd_path;
 
 	cmd_args = ft_split(cmd, ' ');
+	free(cmd);
 	if (!cmd_args)
 	{
 		ft_printf("Error: Memory allocation failed\n");
 		exit(1);
 	}
-	cmd_path = get_cmd_path(cmd_args[0], envp);
+	cmd_path = get_cmd_path(cmd_args, envp);
 	if (!cmd_path)
 	{
-		//	write(2, "bash: ", 6);
 		write(2, cmd_args[0], ft_strlen(cmd_args[0]));
 		write(2, ": command not found\n", 20);
 		free_split(cmd_args);
